@@ -1,0 +1,108 @@
+<mat-card>
+  <mat-toolbar color="accent">
+    <span align ="center">Reactive Web-APi Form</span>
+    <p *ngIf ="datasaved" ngClass="success" align ="right">
+      {{message}}
+    </p>
+  </mat-toolbar>
+  <mat-card-content>
+<form [formGroup]="PersonForm" (ngSubmit)="onFormSubmit(PersonForm.value)">
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="demo-full-width">
+<input formControlName ="Name" matInput placeholder="Name">
+            </mat-form-field>
+            <mat-error>
+              <span *ngIf="!PersonForm.get('Name').valid && PersonForm.get('Name').touched">Name is Required</span>
+            </mat-error>
+          </td>
+          
+          <td>
+            <mat-form-field class="demo-full-width">
+<input formControlName ="Address" matInput placeholder="Address">
+            </mat-form-field>
+            <mat-error>
+              <span *ngIf="!PersonForm.get('Address').valid && PersonForm.get('Address').touched">Name is Required</span>
+            </mat-error>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="demo-full-width">
+<input formControlName ="Mobile_No" matInput placeholder="Mobile Number">
+            </mat-form-field>
+            <mat-error>
+              <span *ngIf="!PersonForm.get('Mobile_No').valid && PersonForm.get('Mobile_No').touched">Name is Required</span>
+            </mat-error>
+          </td>
+        
+          <td>
+            <mat-form-field class="demo-full-width">
+<input formControlName ="Email" matInput placeholder="Email">
+            </mat-form-field>
+            <mat-error>
+              <span *ngIf="!PersonForm.get('Email').valid && PersonForm.get('Email').touched">Email is Required</span>
+            </mat-error>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>Gender</span>
+            <br/>
+            <mat-radio-group aria-label="Select an option" formControlName="Gender">
+              <mat-radio-button value="Male">Male</mat-radio-button>
+              <mat-radio-button value="Female">Female</mat-radio-button>
+            </mat-radio-group>
+            <mat-error>
+              <span *ngIf="!PersonForm.get('Gender').valid && PersonForm.get('Gender').touched">Gender is Required</span>
+            </mat-error>
+          </td>
+        </tr>
+          <tr>
+            <td>
+            <button type="submit" mat-raised-button color="accent" [disabled]="!PersonForm.value">Submit</button>
+            <button type="reset" mat-raised-button color="accent" (click)="resetForm()">Reset</button>
+          
+          </td>
+          
+        </tr>
+      </table>
+    </td>
+    <td valign="Top">
+<table id="PersonsId" mat-Table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Mobile No</th>
+    <th>Email</th>
+    <th>Gender</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let e of allPerson | async">
+    <td>{{e.Id}}</td>
+    <td>{{e.Name}}</td>
+    <td>{{e.Address}}</td>
+    <td>{{e.Mobile_No}}</td>
+    <td>{{e.Email}}</td>
+    <td>{{e.Gender}}</td>
+    <td>
+      <button type="button" (click)="loadPersonToEdit(e.Id)">Edit</button>
+    </td>
+    <td>
+        <button type="button" (click)="loadPersonToDelete(e.Id)">Delete</button>
+      </td>
+  </tr>
+
+</table>
+    </td>
+  </tr>
+</table>
+</form>
+  </mat-card-content>
+</mat-card>
